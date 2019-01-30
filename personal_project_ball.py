@@ -39,6 +39,7 @@ class Ball(Turtle):
 
 	def new_Ball(self, x, y ,dx ,dy, color, r):
 		self.penup()
+		self.goto(x,y)
 		self.x = self.xcor()
 		self.y = self.ycor()
 		self.dx = dx
@@ -47,5 +48,5 @@ class Ball(Turtle):
 		self.shape("circle")
 		self.shapesize(r/10)
 		self.color(color)
-		self.goto(x,y)
+		
 

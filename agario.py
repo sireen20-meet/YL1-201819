@@ -4,8 +4,18 @@ from personal_project_ball import *
 import random
 import math
 go = turtle.clone()
-#again = turtle.Turtle()
+
+again = turtle.clone()
+again.hideturtle()
+again.penup()
+again.goto(0,-50)
+
+
+
+
 go.hideturtle()
+go.penup()
+go.goto(0,50)
 
 turtle.colormode(1)
 
@@ -16,14 +26,14 @@ running = True
 screen_width = turtle.getcanvas().winfo_width()/2
 screen_height = turtle.getcanvas().winfo_height()/2
 
-#turtle.register_shape("again.gif")
-#again.shape("again.gif")
+turtle.register_shape("again.gif")
+again.shape("again.gif")
 number_of_balls = 4
 
 my_ball = Ball(0, 0,3, 1, "blue", 70)
 
 
-number_of_balls = 3
+number_of_balls = 5
 minimum_ball_radius = 10
 maximum_ball_radius = 100
 minimum_ball_dx = -5
@@ -44,6 +54,30 @@ for i in range (number_of_balls) :
 
 	new_balls = Ball(x, y, dx, dy, color, r)
 	BALLS.append(new_balls)
+
+
+
+def restart(x,y):
+	global running
+	running = True
+	while(running):
+		again.hideturtle()
+		go.clear()
+		screen_width = turtle.getcanvas().winfo_width()/2
+		screen_height = turtle.getcanvas().winfo_height()/2
+
+
+		movearound()
+		move_all_balls()
+		# turtle.update()
+		# time.sleep(2)
+		check_all_balls_collision()
+
+		time.sleep(.1)
+
+		turtle.update()
+
+again.onclick(restart)
 
 def move_all_balls():
 	for b in BALLS:
@@ -90,6 +124,7 @@ def check_all_balls_collision():
 					ball_a.new_Ball(x, y, dx, dy, color, r)
 					ball_b.r = ball_b.r + 1
 					ball_b.shapesize(ball_b.r/ 10)
+
 				else:
 					ball_b.new_Ball(x, y, dx, dy, color, r)
 					ball_a.r = ball_a.r + 1
@@ -97,6 +132,11 @@ def check_all_balls_collision():
 				if (my_ball == ball_a and r1<r2 or my_ball == ball_b and r1>r2):
 					running = False
 					go.write( "Game Over!",move=False, align="center", font=("Comic Sans MS", 40, "normal"))
+					again.showturtle()
+					print("BALL COLLIDED")
+					#time.sleep(1)
+					
+
 
 
 
@@ -124,6 +164,8 @@ while running:
 	time.sleep(.1)
 
 	turtle.update()
+
+
 	
 
 
